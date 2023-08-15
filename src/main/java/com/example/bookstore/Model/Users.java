@@ -2,14 +2,16 @@ package com.example.bookstore.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -29,7 +31,8 @@ public class Users {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "fistname", nullable = false)
+    @JsonIgnore
+    @Column(name = "fistname")
     @JdbcTypeCode(SqlTypes.NVARCHAR)
     private String fistname;
 
