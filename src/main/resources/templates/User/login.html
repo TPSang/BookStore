@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
+
+<!-- Display login error message if applicable -->
+<p th:if="${loginError}" style="color: red;">Login failed. Please try again.</p>
+
+<form action="#" th:action="@{/login}" th:object="${loginRequest}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" th:field="*{username}" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" th:field="*{password}" required><br>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>

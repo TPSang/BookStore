@@ -1,6 +1,6 @@
 package com.example.bookstore.Services;
 
-import com.example.bookstore.DTO.LoginBody;
+import com.example.bookstore.DTO.LoginRequest;
 import com.example.bookstore.DTO.ResignBody;
 import com.example.bookstore.Dao.UsersDao;
 import com.example.bookstore.Model.Users;
@@ -32,25 +32,16 @@ public class UserServices {
         // Lưu người dùng mới vào cơ sở dữ liệu
         return usersDao.save(newUser);
     }
+    public Users loginUser(LoginRequest loginRequest) {
+        Users user = usersDao.findByUsername(loginRequest.getUsername());
 
-
-//     public boolean authUser(LoginBody loginBody) {
-//        Users user = usersDao.findByUsername(loginBody.getUsername());
-//        if (user != null && user.getPassword().equals(loginBody.getPassword())) {
-//            return true; // Đăng nhập thành công
-//        }
-//        return false; // Đăng nhập thất bại
-//    }
-public  Boolean loginUser(LoginBody loginBodybody){
-    Optional<Users> optionalUsers =usersDao.findByUsernameIgnoreCase(loginBodybody.getUsername());
-    if(optionalUsers.isPresent()){
-        Users users = optionalUsers.get();
-        if(encryptionService.verifyPassword(loginBodybody.getPassword(),users.getPassword())){
-            return true;
+        if (user != null && encryptionService.verifyPassword(loginRequest.getPassword(), user.getPassword())) {
+            return user;
         }
+
+        return null; // Đăng nhập không thành công
     }
-    return false;
-}
+
 
     public Users getUserByUsername(String username) {
         return usersDao.findByUsername(username);
