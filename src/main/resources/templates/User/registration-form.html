@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<form th:action="@{/api/register}" method="post">
+    <input type="text" th:field="${resignBody.username}" placeholder="Username">
+    <input type="password" th:field="${resignBody.password}" placeholder="Password">
+    <input type="email" th:field="${resignBody.email}" placeholder="Email">
+    <input type="text" th:field="${resignBody.fistname}" placeholder="First Name">
+    <input type="text" th:field="${resignBody.lastname}" placeholder="Last Name">
+    <input type="text" th:field="${resignBody.phone}" placeholder="Phone">
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>
