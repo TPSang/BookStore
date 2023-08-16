@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<h1>Welcome to the Home Page</h1>
+<p id="loggedInUserMessage"></p>
+
+<script th:inline="javascript">
+    // Lấy thông tin người dùng từ localStorage
+    const userDetailsString = localStorage.getItem("userDetails");
+    if (userDetailsString) {
+        const userDetails = JSON.parse(userDetailsString);
+        const loggedInUserMessage = document.getElementById("loggedInUserMessage");
+        loggedInUserMessage.textContent = "Hello, " + userDetails.username + "! You have successfully logged in.";
+    }
+</script>
+</body>
+</html>

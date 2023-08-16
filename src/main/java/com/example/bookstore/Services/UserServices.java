@@ -51,4 +51,8 @@ public  Boolean loginUser(LoginBody loginBodybody){
     }
     return false;
 }
+
+    public Users getUserByUsername(String username) {
+        return usersDao.findByUsername(username);
+    }
 }

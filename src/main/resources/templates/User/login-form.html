@@ -5,7 +5,7 @@
     <title>Login Form</title>
 </head>
 <body>
-<form action="/login" method="post">
+<form id="login-form" th:action="@{/login}" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username"><br>
     <label for="password">Password:</label>
@@ -16,5 +16,35 @@
 <div th:if="${loginResult != null}">
     <p th:text="${loginResult}"></p>
 </div>
+
+<script th:inline="javascript">
+    const loginForm = document.getElementById("login-form");
+
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const username = loginForm.querySelector("#username").value;
+        const password = loginForm.querySelector("#password").value;
+
+        const response = await fetch("/login", {
+            method: "POST", // Sử dụng phương thức POST
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `username=${username}&password=${password}`,
+        });
+
+        if (response.ok) {
+            const userDetails = await response.json();
+            localStorage.setItem("userDetails", JSON.stringify(userDetails));
+            alert("Login successful");
+
+            // Redirect to another page if needed
+            window.location.href = "/home"; // Change to the desired URL
+        } else {
+            alert("Login failed");
+        }
+    });
+</script>
 </body>
 </html>
