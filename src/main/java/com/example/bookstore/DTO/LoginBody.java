@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResignBody {
+public class LoginBody {
     private String username;
     private String password;
-    private String email;
-    private String fistname;
-    private String lastname;
-    private Integer phone;
 }

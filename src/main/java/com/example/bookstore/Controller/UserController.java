@@ -1,9 +1,12 @@
 package com.example.bookstore.Controller;
 
 
+import com.example.bookstore.DTO.LoginBody;
+import com.example.bookstore.DTO.ResignBody;
 import com.example.bookstore.Model.Users;
 import com.example.bookstore.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,30 +20,24 @@ public class UserController {
     UserServices usersService;
 
     @GetMapping("/users")
-    public String getUser(){
-
-        return "User/Login";
+    public String showLoginForm(Model model){
+        model.addAttribute("loginBody", new LoginBody());
+        return "/User/login-form";
     };
-    @GetMapping("/index")
-    public String index(){
-        return "User/index";
-    }
-    @GetMapping("/register")
-    public String register(){
-        return "User/Register";
-    }
-
-    @GetMapping("/users/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("user", new Users());
-        return "User/create-user";
+    @PostMapping("/api/login")
+    public ResponseEntity<String> loginUser(@ModelAttribute("loginBody") LoginBody loginBody) {
+        // Sử dụng
+        loginBody.getUsername() ;
+        loginBody.getPassword() ;
+        usersService.authUser(loginBody);
+        // Trả về phản hồi phù hợp
+        return ResponseEntity.ok("Login successful");
     }
 
-    @PostMapping("/users/create")
-    public String createUser(@ModelAttribute Users user) {
-        usersService.creUsers(user);
-        return "redirect:/users";
-    }
+
+
+
+
 }
 
 
