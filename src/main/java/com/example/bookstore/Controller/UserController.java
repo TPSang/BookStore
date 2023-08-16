@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -19,22 +20,25 @@ public class UserController {
     @Autowired
     UserServices usersService;
 
-    @GetMapping("/users")
-    public String showLoginForm(Model model){
-        model.addAttribute("loginBody", new LoginBody());
-        return "/User/login-form";
-    };
-    @PostMapping("/api/login")
-    public ResponseEntity<String> loginUser(@ModelAttribute("loginBody") LoginBody loginBody) {
-        // Sử dụng
-        loginBody.getUsername() ;
-        loginBody.getPassword() ;
-        usersService.authUser(loginBody);
-        // Trả về phản hồi phù hợp
-        return ResponseEntity.ok("Login successful");
+
+    @GetMapping("/login-form")
+    public String showLoginForm() {
+        return "User/login-form";
     }
 
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password, Model model) {
+        LoginBody loginBody = new LoginBody(username, password);
+        boolean isAuthenticated = usersService.loginUser(loginBody);
 
+        if (isAuthenticated) {
+            model.addAttribute("loginResult", "Login successful");
+        } else {
+            model.addAttribute("loginResult", "Login failed");
+        }
+
+        return "User/login-form";
+    }
 
 
 
