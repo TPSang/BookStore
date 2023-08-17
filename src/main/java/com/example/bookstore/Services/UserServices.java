@@ -20,6 +20,7 @@ public class UserServices {
 
     public void Users() {}
 
+    // Thêm User từ người dùng thông qua DTO ReSignBody
     public Users registerUser(@RequestBody ResignBody resignBody) {
         Users newUser = new Users();
         newUser.setUsername(resignBody.getUsername());
@@ -32,14 +33,19 @@ public class UserServices {
         // Lưu người dùng mới vào cơ sở dữ liệu
         return usersDao.save(newUser);
     }
+    // Hàm đăng nhập user
     public Users loginUser(  LoginRequest loginRequest) {
+
+        // Nhân từ LoginRequest và tìm trong DB
         Users user = usersDao.findByUsername(loginRequest.getUsername());
 
+        //Nếu có người dung và mật khẩu đúng (so sanh mật khẩu từ serviceEncrypassWord)
         if (user != null && encryptionService.verifyPassword(loginRequest.getPassword(), user.getPassword())) {
+           // trả về thông tin ngườfi dùng đó cho controllers
             return user;
         }
 
-        return null; // Đăng nhập không thành công
+        return null; // trả về null
     }
 
 

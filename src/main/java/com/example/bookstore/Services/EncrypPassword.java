@@ -12,14 +12,13 @@ public class EncrypPassword {
     // Set value cho ma hoa value cang lon ma hoa cang manh
     @Value("${encryption.salt.rounds}")
 
-    // luu valu da tao
+    // Số lần lặp trong value
     private int saltRounds;
 
     //bien tao values
     private String salt;
 
-    //tao ra ma hoa
-
+    // Đặt cấu trúc vào trong hàm tạo mã hóa mật khẩu
     @PostConstruct
     public void postConstruct(){
         salt = BCrypt.gensalt(saltRounds);
@@ -30,7 +29,7 @@ public class EncrypPassword {
     public String encrypPassword(String password){
         return BCrypt.hashpw(password,salt);
     }
-    // gia mai mat khau
+    // gia mai mat khau và so sánh với mật khẩu người dung nhập
     public boolean verifyPassword(String password , String hash){
         return BCrypt.checkpw(password, hash);
     }
