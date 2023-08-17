@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 public class AuthController {
@@ -29,6 +29,8 @@ public class AuthController {
         Users user = userServices.loginUser(loginRequest);
 
         if (user != null) {
+            model.addAttribute("user", user);
+            System.out.println(user);
             return "redirect:/success"; // Đăng nhập thành công
         } else {
             model.addAttribute("loginError", true);

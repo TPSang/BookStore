@@ -32,7 +32,7 @@ public class UserServices {
         // Lưu người dùng mới vào cơ sở dữ liệu
         return usersDao.save(newUser);
     }
-    public Users loginUser(LoginRequest loginRequest) {
+    public Users loginUser(@RequestBody  LoginRequest loginRequest) {
         Users user = usersDao.findByUsername(loginRequest.getUsername());
 
         if (user != null && encryptionService.verifyPassword(loginRequest.getPassword(), user.getPassword())) {
