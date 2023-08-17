@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -14,10 +15,7 @@ public class AuthController {
     @Autowired
     UserServices userServices;
 
-    @GetMapping("/success")
-    public  String index(){
-        return "User/success";
-    }
+
     @GetMapping("/login")
     public String showLoginForm(Model model) {
         model.addAttribute("loginRequest", new LoginRequest());
@@ -31,7 +29,7 @@ public class AuthController {
         if (user != null) {
             model.addAttribute("user", user);
             System.out.println(user);
-            return "redirect:/success"; // Đăng nhập thành công
+            return "User/success"; // Đăng nhập thành công
         } else {
             model.addAttribute("loginError", true);
             return "User/login"; // Đăng nhập thất bại, hiển thị lại form
