@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface UsersDao extends JpaRepository<Users, Long> {
+    Optional<Users> findByEmailIgnoreCase(String email);
     Optional<Users> findByUsernameIgnoreCase(String username);
     Users findByUsername(String username);
 

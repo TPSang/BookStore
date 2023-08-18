@@ -37,7 +37,7 @@ public class AuthController {
             return "User/success"; // Đăng nhập thành công
         } else {
             // nếu sai trả về trang login cùng thông báo
-            model.addAttribute("loginError", true);
+            model.addAttribute("-", true);
             return "User/login"; // Đăng nhập thất bại, hiển thị lại form
         }
     }

@@ -1,15 +1,41 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Success</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Success</h1>-->
+<!--<p>Congratulations! You have successfully logged in.</p>-->
+<!--<h1>Welcome, <span th:text="${user.username}"></span>!</h1>-->
+<!--<p>Email: <span th:text="${user.email}"></span></p>-->
+<!--<p>Full Name: <span th:text=" ${user.lastname}"></span></p>-->
+<!--<p>Phone: <span th:text="${user.phone}"></span></p>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Success</title>
 </head>
 <body>
+<h1>Success</h1>
+<p>Congratulations! You have successfully logged in.</p>
 <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
-<span th:text="${user.email}"></span>
-<span th:text="${user.fistname}"></span>
-<span th:text="${user.phone}"></span>
+<p>Email: <span th:text="${user.email}"></span></p>
+<p>Full Name: <span th:text="${user.lastname}"></span></p>
+<p>Phone: <span th:text="${user.phone}"></span></p>
 
-<!-- Hiển thị thông tin người dùng hoặc bất kỳ nội dung nào bạn muốn -->
+<script>
+    // Lấy thông tin người dùng từ Thymeleaf và lưu vào localStorage
+    var user = {
+        username: "${user.username}",
+        email: "${user.email}",
+        lastname: "${user.lastname}",
+        phone: "${user.phone}"
+    };
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+</script>
 </body>
 </html>
